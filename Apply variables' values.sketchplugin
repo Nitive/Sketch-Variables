@@ -1,0 +1,30 @@
+// Variables Plugin (cmd l)
+/*
+  Original code from https://github.com/nitive/...
+*/
+lg("--------------------------------");
+
+var variables = "variables";
+var separator = " // ";
+
+function lg(msg, title) {
+  title = (title || "");
+  if (title != "") title += ": ";
+  NSLog("%@%@", title, msg);
+}
+
+var layers = [[doc currentPage] children];
+
+for (i = 0; i < [layers count]; i++) {
+  var layer = [layers objectAtIndex:i];
+  var index = [layer name].indexOf(separator);
+  if (index != -1) {
+    // delete all before separator, separator and spaces
+    var re = new RegExp("^.*" + separator + " *","g");
+    var classes = [layer name].replace(re, "");
+    // Apply our styles here
+    lg(classes);
+  }
+}
+
+lg("--------------------------------");
