@@ -40,7 +40,7 @@ function parseVariables() {
     }
     else if (line.match(valueRegex)) {
       var name = line.match(/[\w-]+/)[0];
-      var value = line.replace(name, "").match(/[\w#]+[\w# ]*/)[0];
+      var value = line.replace(name, "").match(/[\w#]+[\w# ]*/)[0].trim();
       styles[variable] = styles[variable] || {};
       styles[variable][name] = value;
     }
@@ -48,8 +48,32 @@ function parseVariables() {
   return styles;
 }
 
+function applyTextStyles(key, value) {
+  // set typeface
+  if (key == "typeface") {
+    [layer setFontPostscriptName:value]];
+  }
+  // set color
+  if (key == "color") {
+    var color = MSColor.colorWithNSColor(NSColor.colorWithHex(value));
+    [layer setTextColor:color];
+  }
+}
+
+function applyStyles(layer, className, styles) {
+  if (styles[className] != undefined) {
+    for (var key in styles[className]) {
+
+      // text
+      if ([layer class] == MSTextLayer) {
+        applyTextStyles(key, styles[className][key]);
+      }
+
+    }
+  }
+}
+
 var styles = parseVariables();
-lg(styles);
 
 var layers = [[doc currentPage] children];
 
@@ -59,9 +83,11 @@ for (i = 0; i < [layers count]; i++) {
   if (index != -1) {
     // Delete all before separator, separator and spaces
     var re = new RegExp("^.*" + separator + " *","g");
-    var classes = [layer name].replace(re, "");
+    var classes = [layer name].replace(re, "").split(/\s+/);
     // Apply styles here
-    // lg(classes);
+    for (j = 0; j < classes.length; j++) {
+      applyStyles(layer, classes[j], styles);
+    }
   }
 }
 
