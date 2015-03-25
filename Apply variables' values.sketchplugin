@@ -26,11 +26,30 @@ function variablesLayer() {
 
 function parseVariables() {
   layer = variablesLayer();
-  if (layer != "Not found") {
-    // Parse variables here
+  if (layer == "Not found") return;
+
+  // Parse variables here
+  var styles = {};
+  var variable = "";
+
+  lines = [layer stringValue].split("\n");
+  for (i = 0; i < lines.length; i++) {
+    line = lines[i];
+    if (line.match(classNameRegex)) {
+      variable = line.match(/[\.#\w-]+/);
+    }
+    else if (line.match(valueRegex)) {
+      var name = line.match(/[\w-]+/)[0];
+      var value = line.replace(name, "").match(/[\w#]+[\w# ]*/)[0];
+      styles[variable] = styles[variable] || {};
+      styles[variable][name] = value;
+    }
   }
+  return styles;
 }
-parseVariables();
+
+var styles = parseVariables();
+lg(styles);
 
 var layers = [[doc currentPage] children];
 
@@ -42,7 +61,7 @@ for (i = 0; i < [layers count]; i++) {
     var re = new RegExp("^.*" + separator + " *","g");
     var classes = [layer name].replace(re, "");
     // Apply styles here
-    lg(classes);
+    // lg(classes);
   }
 }
 
