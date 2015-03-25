@@ -4,14 +4,33 @@
 */
 lg("--------------------------------");
 
-var variables = "variables";
+var variablesLayerName = "variables";
 var separator = " // ";
+var classNameRegex = /^[\.#]?[\w-]+ *\{? *$/;
+var valueRegex = /^(\t| {1,4})[\w-]*(\[\d+\])?[: ]+[ \w#\.]+;? *$/;
 
 function lg(msg, title) {
   title = (title || "");
   if (title != "") title += ": ";
   NSLog("%@%@", title, msg);
 }
+function variablesLayer() {
+  var layers = [[doc currentPage] children];
+  for (i = 0; i < [layers count]; i++) {
+    var layer = [layers objectAtIndex:i];
+    if ([layer name].substring(0, variablesLayerName.length) == variablesLayerName)
+      return layer;
+  }
+  return "Not found"
+}
+
+function parseVariables() {
+  layer = variablesLayer();
+  if (layer != "Not found") {
+    // Parse variables here
+  }
+}
+parseVariables();
 
 var layers = [[doc currentPage] children];
 
@@ -19,10 +38,10 @@ for (i = 0; i < [layers count]; i++) {
   var layer = [layers objectAtIndex:i];
   var index = [layer name].indexOf(separator);
   if (index != -1) {
-    // delete all before separator, separator and spaces
+    // Delete all before separator, separator and spaces
     var re = new RegExp("^.*" + separator + " *","g");
     var classes = [layer name].replace(re, "");
-    // Apply our styles here
+    // Apply styles here
     lg(classes);
   }
 }
