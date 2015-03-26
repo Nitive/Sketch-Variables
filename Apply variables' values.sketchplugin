@@ -34,7 +34,6 @@ function parseVariables() {
   layer = variablesLayer();
   if (layer == "Not found") return;
 
-  // Parse variables here
   var styles = {};
   var variable = "";
 
@@ -62,7 +61,6 @@ function applyStyles(layer, className, styles) {
   if (styles[className] != undefined) {
     for (var key in styles[className]) {
 
-      // text
       if ([layer class] == MSTextLayer) {
         applyTextStyles(key, styles[className][key]);
       }
@@ -83,7 +81,6 @@ for (i = 0; i < [layers count]; i++) {
     // Delete all before separator, separator and spaces
     var re = new RegExp("^.*" + separator + " *","g");
     var classes = [layer name].replace(re, "").split(/\s+/);
-    // Apply styles here
     for (j = 0; j < classes.length; j++) {
       applyStyles(layer, classes[j], styles);
     }
