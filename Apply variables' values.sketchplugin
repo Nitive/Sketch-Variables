@@ -9,6 +9,10 @@ var separator = " // ";
 var classNameRegex = /^[\.#]?[\w-]+ *\{? *$/;
 var valueRegex = /^(\t| {1,4})[\w-]*(\[\d+\])?[: ]+[ \w#\.]+;? *$/;
 
+String.prototype.capitalize = function() {
+  return this[0].toUpperCase() + this.substring(1);
+}
+
 function lg(msg, title) {
   title = (title || "");
   if (title != "") title += ": ";
@@ -53,10 +57,37 @@ function applyTextStyles(key, value) {
   if (key == "typeface") {
     [layer setFontPostscriptName:value]];
   }
+
+  // set weight
+  if (key == "weight") {
+    var newFontName = [layer fontPostscriptName].split("-")[0] + "-";
+    // capitalize value
+    var weights = value.split(/\s+/));
+    for (j = 0; j < weights.length; j++) {
+      newFontName += weights[j].capitalize();
+    }
+    [layer setFontPostscriptName:newFontName];
+  }
+
   // set color
   if (key == "color") {
     var color = MSColor.colorWithNSColor(NSColor.colorWithHex(value));
     [layer setTextColor:color];
+  }
+
+  // set size
+  if (key == "size") {
+    [layer setFontSize:value];
+  }
+
+  if (key == "alignment") {
+    var alignments = {
+      left: 0,
+      right: 1,
+      center: 2,
+      justify: 3
+    }
+    [layer setTextAlignment: alignments[value]];
   }
 }
 
