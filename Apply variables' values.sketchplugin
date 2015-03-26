@@ -89,6 +89,14 @@ function applyTextStyles(key, value) {
     }
     [layer setTextAlignment: alignments[value]];
   }
+
+  if (key == "character") {
+    [layer setCharacterSpacing:value];
+  }
+
+  if (key == "line") {
+    [layer setLineSpacing:value];
+  }
 }
 
 function applyStyles(layer, className, styles) {
