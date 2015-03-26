@@ -7,7 +7,7 @@ lg("--------------------------------");
 var variablesLayerName = "variables";
 var separator = " // ";
 var classNameRegex = /^[\.#]?[\w-]+ *\{? *$/;
-var valueRegex = /^(\t| {1,4})[\w-]*(\[\d+\])?[: ]+[ \w#\.]+;? *$/;
+var valueRegex = /^(\t| {1,4})[\w-]*(\[\d+\])?[=: ]+[ \w#\.]+;? *$/;
 
 String.prototype.capitalize = function() {
   return this[0].toUpperCase() + this.substring(1);
@@ -52,6 +52,10 @@ function parseVariables() {
   return styles;
 }
 
+function colorFromText(text) {
+  return MSColor.colorWithNSColor(NSColor.colorWithHex(text));
+}
+
 function applyTextStyles(key, value) {
   // set typeface
   if (key == "typeface") {
@@ -71,8 +75,7 @@ function applyTextStyles(key, value) {
 
   // set color
   if (key == "color") {
-    var color = MSColor.colorWithNSColor(NSColor.colorWithHex(value));
-    [layer setTextColor:color];
+    [layer setTextColor:colorFromText(value)];
   }
 
   // set size
@@ -107,7 +110,8 @@ function applyStyles(layer, className, styles) {
       if ([layer class] == MSTextLayer) {
         applyTextStyles(key, styles[className][key]);
       }
-
+      else
+        lg([layer class], [layer name]);
     }
   }
 }
