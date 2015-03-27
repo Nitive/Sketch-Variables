@@ -1,4 +1,4 @@
-function applyTextStyles(key, value) {
+function applyTextStyles(layer, key, value) {
 
   if (key == "typeface") {
     [layer setFontPostscriptName:value]];

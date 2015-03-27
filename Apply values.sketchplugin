@@ -11,7 +11,7 @@ lg("--------------------------------");
 var variablesLayerName = "variables";
 var separator = " // ";
 var classNameRegex = /^[\.#]?[\w-]+ *\{? *$/;
-var valueRegex = /^(\t| {1,4})[\w-]*(\[\d+\])?[=: ]+[ \w#\.]+;? *$/;
+var valueRegex = /^(\t| {1,4})[\w-]*(\[\d+\])?[=: ]+[ \w#%\.]+;? *$/;
 
 String.prototype.capitalize = function() {
   return this[0].toUpperCase() + this.substring(1);
@@ -59,9 +59,8 @@ function applyStyles(layer, className, styles) {
   if (styles[className] != undefined) {
     for (var key in styles[className]) {
       if ([layer class] == MSTextLayer)
-        applyTextStyles(key, styles[className][key]);
-      else
-        applyLayerStyles(key, styles[className][key]);
+        applyTextStyles(layer, key, styles[className][key]);
+      applyLayerStyles(layer, key, styles[className][key]);
     }
   }
 }
