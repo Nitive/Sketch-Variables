@@ -1,5 +1,5 @@
 {
-    "name": "Apply variables' values",
-    "description": "Variables plug-in allows to create variables as CSS/Stylus code",
-    "tags": ["variables", "automatization"]
+  "name": "Apply variables' values",
+  "description": "Variables plug-in allows to create variables as CSS/Stylus code",
+  "tags": ["variables", "automatization", "style", "css", "stylus"]
 }

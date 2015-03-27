@@ -18,4 +18,3 @@ choose "Open Plugins Folder".
     Change it.
 
 [Scripting documentation](http://bohemiancoding.com/sketch/support/developer/)
-

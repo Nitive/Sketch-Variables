@@ -2,6 +2,8 @@
 /*
   Original code from https://github.com/nitive/...
 */
+#import 'utilities.js'
+#import 'layer.js'
 #import 'text.js'
 
 lg("--------------------------------");
@@ -53,19 +55,13 @@ function parseVariables() {
   return styles;
 }
 
-function colorFromText(text) {
-  return MSColor.colorWithNSColor(NSColor.colorWithHex(text));
-}
-
 function applyStyles(layer, className, styles) {
   if (styles[className] != undefined) {
     for (var key in styles[className]) {
-
-      if ([layer class] == MSTextLayer) {
+      if ([layer class] == MSTextLayer)
         applyTextStyles(key, styles[className][key]);
-      }
       else
-        lg([layer class], [layer name]);
+        applyLayerStyles(key, styles[className][key]);
     }
   }
 }
