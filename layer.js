@@ -28,7 +28,7 @@ function applyLayerStyles(layer, key, value) {
   if (key == "fill") {
     var values = value.split(/\s+/);
     var color = value.match(/#[\da-fA-F]{0,6}/)[0];
-    var modeMatches = value.match(/ [\w ]+ /);
+    var modeMatches = value.match(/ [\w ]+( |$)/);
     var modeName = modeMatches ? modeMatches[0].toLowerCase().replace(/ /g, "") : "normal";
     var blendMode = modes[modeName];
     var opacityMatches = value.match(/ \d+/);
@@ -41,8 +41,10 @@ function applyLayerStyles(layer, key, value) {
 
     var fills = [[layer style] fills];
     if ([fills count] > 0) {
+      if (value.indexOf("no-replace") != -1) return
       var fill = [fills objectAtIndex:0];
     } else {
+      if (value.indexOf("no-add") != -1) return
       var fill = [MSStyleFill new];
       [fills addObject:fill];
     }

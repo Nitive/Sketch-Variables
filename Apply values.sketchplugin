@@ -11,7 +11,7 @@ lg("--------------------------------");
 var variablesLayerName = "variables";
 var separator = " // ";
 var classNameRegex = /^[\.#]?[\w-]+ *\{? *$/;
-var valueRegex = /^(\t| {1,4})[\w-]*(\[\d+\])?[=: ]+[ \w#%\.]+;? *$/;
+var valueRegex = /^(\t| {1,4})[\w-]*[=: ]+[ \w-#%\.]+;? *$/;
 
 String.prototype.capitalize = function() {
   return this[0].toUpperCase() + this.substring(1);
@@ -47,7 +47,7 @@ function parseVariables() {
     }
     else if (line.match(valueRegex)) {
       var name = line.match(/[\w-]+/)[0];
-      var value = line.replace(name, "").match(/[\w#]+[\w# ]*/)[0].trim();
+      var value = line.replace(name, "").match(/[\w#]+[\w-# ]*/)[0].trim();
       styles[variable] = styles[variable] || {};
       styles[variable][name] = value;
     }
