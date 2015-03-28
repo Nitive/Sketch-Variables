@@ -35,7 +35,7 @@ function applyLayerStyles(layer, key, value) {
     var opacity = opacityMatches ? parseInt(opacityMatches[0].trim()) / 100 : 1;
 
     var context = [MSGraphicsContextSettings new];
-    // It doesn't work I don't know why
+    // It doesn't work correctly I don't know why
     // [context setOpacity:opacity];
     [context setBlendMode:blendMode];
 

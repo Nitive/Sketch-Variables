@@ -13,10 +13,6 @@ var separator = " // ";
 var classNameRegex = /^[\.#]?[\w-]+ *\{? *$/;
 var valueRegex = /^(\t| {1,4})[\w-]*[=: ]+[ \w-#%\.]+;? *$/;
 
-String.prototype.capitalize = function() {
-  return this[0].toUpperCase() + this.substring(1);
-}
-
 function lg(msg, title) {
   title = (title || "");
   if (title != "") title += ": ";
@@ -76,8 +72,8 @@ for (i = 0; i < [layers count]; i++) {
     // Delete all before separator, separator and spaces
     var re = new RegExp("^.*" + separator + " *","g");
     var classes = [layer name].replace(re, "").split(/\s+/);
-    for (j = 0; j < classes.length; j++) {
-      applyStyles(layer, classes[j], styles);
+    for (c = 0; c < classes.length; c++) {
+      applyStyles(layer, classes[c], styles);
     }
   }
 }
