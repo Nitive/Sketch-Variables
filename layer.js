@@ -51,4 +51,16 @@ function applyLayerStyles(layer, key, value) {
     [fill setColor:colorFromText(color)];
     [fill setContextSettings:context];
   }
+  if (key == "x") {
+    [[layer frame] setX:value];
+  }
+  if (key == "y") {
+    [[layer frame] setY:value];
+  }
+  if (key == "width") {
+    [[layer frame] setWidth:value];
+  }
+  if (key == "height") {
+    [[layer frame] setHeight:value];
+  }
 }
