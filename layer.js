@@ -63,4 +63,11 @@ function applyLayerStyles(layer, key, value) {
   if (key == "height") {
     [[layer frame] setHeight:value];
   }
+  if (key == "opacity") {
+    [[[layer style] contextSettings] setOpacity:parseFloat(value) / 100];
+  }
+  if (key == "blending") {
+    var blendMode = modes[value.toLowerCase().replace(/ /g, "")] || "normal";
+    [[[layer style] contextSettings] setBlendMode: blendMode];
+  }
 }
