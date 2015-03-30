@@ -1,6 +1,6 @@
 // Variables Plugin (cmd l)
 /*
-  Original code from https://github.com/nitive/...
+  Original code from https://github.com/Nitive/Sketch-Variables
 */
 #import 'utilities.js'
 #import 'layer.js'

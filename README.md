@@ -7,7 +7,7 @@ Variables plug-in for [Sketch.app](http://bohemiancoding.com/sketch/) allows to 
 1. Open Sketch's plugins folder. You can do it by choosing
    custom script from the Plugins menu, then click the gear icon and
 choose "Open Plugins Folder".
-2. Open the file "Dynamic Button.sketchplugin" in text
+2. Open the file "Apply values.sketchplugin" in text
    editor.
 3. The shortcut is on the first line:
 
