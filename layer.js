@@ -23,10 +23,14 @@ var modes = {
   "destinationout": 21,
   "destinationatop": 22
 }
+var positions = {
+  "center": 0,
+  "inside": 1,
+  "outside": 2
+}
 
 function applyLayerStyles(layer, key, value) {
   if (key == "fill") {
-    var values = value.split(/\s+/);
     var color = value.match(/#[\da-fA-F]{0,6}/)[0];
     var modeMatches = value.match(/ [\w ]+( |$)/);
     var modeName = modeMatches ? modeMatches[0].toLowerCase().replace(/ /g, "") : "normal";
@@ -50,6 +54,27 @@ function applyLayerStyles(layer, key, value) {
     }
     [fill setColor:colorFromText(color)];
     [fill setContextSettings:context];
+  }
+  if (key == "border") {
+    var color = value.match(/#[\da-fA-F]{0,6}/)[0];
+    var positionMatches = value.match(/(center|inside|outside)/i);
+    var positionName = positionMatches && [layer class] != MSTextLayer ? positionMatches[0].toLowerCase() : "center";
+    var position = positions[positionName];
+    var thicknessMatches = value.match(/ \d+/);
+    var thickness = thicknessMatches ? parseInt(thicknessMatches[0]) : 1;
+
+    var borders = [[layer style] borders];
+    if ([borders count] > 0) {
+      if (value.indexOf("no-replace") != -1) return
+      var border = [borders objectAtIndex:0];
+    } else {
+      if (value.indexOf("no-add") != -1) return
+      var border = [MSStyleBorder new];
+      [borders addObject:border];
+    }
+    [border setColor:colorFromText(color)];
+    [border setPosition:position];
+    [border setThickness:thickness];
   }
   if (key == "x") {
     [[layer frame] setX:value];
