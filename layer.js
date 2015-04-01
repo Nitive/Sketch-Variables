@@ -58,10 +58,10 @@ function applyLayerStyles(layer, key, value) {
   if (key == "border") {
     var color = value.match(/#[\da-fA-F]{0,6}/)[0];
     var positionMatches = value.match(/(center|inside|outside)/i);
-    var positionName = positionMatches && [layer class] != MSTextLayer ? positionMatches[0].toLowerCase() : "center";
+    var positionName = positionMatches && [layer class] != MSTextLayer ? positionMatches[0].toLowerCase() : undefined;
     var position = positions[positionName];
     var thicknessMatches = value.match(/ \d+/);
-    var thickness = thicknessMatches ? parseInt(thicknessMatches[0]) : 1;
+    var thickness = thicknessMatches ? parseInt(thicknessMatches[0]) : undefined;
 
     var borders = [[layer style] borders];
     if ([borders count] > 0) {
@@ -73,8 +73,10 @@ function applyLayerStyles(layer, key, value) {
       [borders addObject:border];
     }
     [border setColor:colorFromText(color)];
-    [border setPosition:position];
-    [border setThickness:thickness];
+    if (position)
+      [border setPosition:position];
+    if (thickness)
+      [border setThickness:thickness];
   }
   if (key == "x") {
     [[layer frame] setX:value];
