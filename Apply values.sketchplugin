@@ -6,8 +6,6 @@
 #import 'layer.js'
 #import 'text.js'
 
-lg("--------------------------------");
-
 var variablesLayerName = "variables";
 var separator = " // ";
 var classNameRegex = /^[\.#]?[\w-]+ *\{? *$/;
@@ -77,5 +75,3 @@ for (i = 0; i < [layers count]; i++) {
     }
   }
 }
-
-lg("--------------------------------");
