@@ -55,6 +55,7 @@ function applyLayerStyles(layer, key, value) {
     [fill setColor:colorFromText(color)];
     [fill setContextSettings:context];
   }
+
   if (key == "border") {
     var color = value.match(/#[\da-fA-F]{0,6}/)[0];
     var positionMatches = value.match(/(center|inside|outside)/i);
@@ -78,6 +79,35 @@ function applyLayerStyles(layer, key, value) {
     if (thickness)
       [border setThickness:thickness];
   }
+
+  if (key == "shadow" || key == "inner-shadow") {
+    var color = value.match(/#[\da-fA-F]{0,6}/)[0];
+    var numbers = value.match(/ -?\d+/g).map(function(num) { return parseInt(num) });
+
+    var shadows = key == "shadow" ? [[layer style] shadows] : [[layer style] innerShadows];
+
+    if ([shadows count] > 0) {
+      if (value.indexOf("no-replace") != -1) return
+      var shadow = [shadows objectAtIndex:0];
+    } else {
+      if (value.indexOf("no-add") != -1) return
+      var shadow = key == "shadow" ? [MSStyleShadow new] : [MSStyleInnerShadow new];
+      [shadows addObject:shadow];
+    }
+    [shadow setColor:colorFromText(color)];
+
+    switch (numbers.length) {
+      case 4:
+        [shadow setSpread:numbers[3]];
+      case 3:
+        [shadow setBlurRadius:numbers[2]];
+      case 2:
+        [shadow setOffsetY:numbers[1]];
+      default:
+        [shadow setOffsetX:numbers[0]];
+    }
+  }
+
   if (key == "x") {
     [[layer frame] setX:value];
   }
