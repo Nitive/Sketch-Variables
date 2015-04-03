@@ -11,11 +11,6 @@ var separator = " // ";
 var classNameRegex = /^[\.#]?[\w-]+ *\{? *$/;
 var valueRegex = /^(\t| {1,4})[\w-]*[=: ]+[ \w-#%\.]+;? *$/;
 
-function lg(msg, title) {
-  title = (title || "");
-  if (title != "") title += ": ";
-  NSLog("%@%@", title, msg);
-}
 function variablesLayer() {
   var layers = [[doc currentPage] children];
   for (i = 0; i < [layers count]; i++) {
