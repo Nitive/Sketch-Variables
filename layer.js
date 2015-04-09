@@ -31,7 +31,7 @@ var positions = {
 
 function applyLayerStyles(layer, key, value) {
   if (key == "fill") {
-    var color = value.match(/#[\da-fA-F]{0,6}/)[0];
+    var color = value.match(colorRegex)[0];
     var modeMatches = value.match(/ [\w ]+( |$)/);
     var modeName = modeMatches ? modeMatches[0].toLowerCase().replace(/ /g, "") : "normal";
     var blendMode = modes[modeName];
@@ -57,7 +57,7 @@ function applyLayerStyles(layer, key, value) {
   }
 
   if (key == "border") {
-    var color = value.match(/#[\da-fA-F]{0,6}/)[0];
+    var color = value.match(colorRegex)[0];
     var positionMatches = value.match(/(center|inside|outside)/i);
     var positionName = positionMatches && [layer class] != MSTextLayer ? positionMatches[0].toLowerCase() : undefined;
     var position = positions[positionName];
@@ -81,7 +81,7 @@ function applyLayerStyles(layer, key, value) {
   }
 
   if (key == "shadow" || key == "inner-shadow") {
-    var color = value.match(/#[\da-fA-F]{0,6}/)[0];
+    var color = value.match(colorRegex)[0];
     var numbers = value.match(/ -?\d+/g).map(function(num) { return parseInt(num) });
 
     var shadows = key == "shadow" ? [[layer style] shadows] : [[layer style] innerShadows];
